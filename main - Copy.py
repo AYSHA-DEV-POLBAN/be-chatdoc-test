@@ -44,8 +44,7 @@ async def create_upload_file(file: UploadFile = File(...)):
         embeddings = OpenAIEmbeddings()
         knowledge_base = FAISS.from_texts(chunks, embeddings)
         
-        
-        return {"filename": file.filename, "content": text, "chunks": chunks}
+        return {"filename": file.filename, "content": text}
 
 @app.post("/ask_question/")
 async def ask_question(question: Question):
@@ -64,4 +63,4 @@ async def ask_question(question: Question):
         response = chain.run(input_documents=docs, question=user_question)
         print(cb)
         
-    return {"response": response, "docs": docs}
+    return {"response": response}
